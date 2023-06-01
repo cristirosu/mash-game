@@ -10,6 +10,7 @@ export default defineComponent({
           mash: new Mash(),
           questionIndex: 0,
           optionsPerCategory: 5,
+          minOptionsPerCategory: 2,
           gameStarted: false,
           gameSpeedOptions: [
             {name: 'Slow', value: 1500},
@@ -74,7 +75,8 @@ export default defineComponent({
           </div>
           <div v-for="(option, index) in category.options">
             <input class="optionNameInput" v-model="option.name"/>
-            <button class="editCategoryButton"
+            <button :disabled="category.options.length <= minOptionsPerCategory"
+                    class="editCategoryButton"
                     @click="category.removeOptionAtIndex(index)">Remove
             </button>
             <button class="editCategoryButton"
